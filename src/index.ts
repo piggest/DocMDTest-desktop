@@ -69,11 +69,19 @@ const createWindow = (): void => {
     },
   });
 
-  // ウィンドウタイトルにバージョンを設定（HTMLの<title>で上書きされないよう固定）
-  mainWindow.setTitle(`DocMDTest Desktop v${app.getVersion()}`);
+  // ウィンドウタイトルにバージョンを設定（HTMLの<title>で上書きされないよう毎回強制）
+  const desiredTitle = `DocMDTest Desktop v${app.getVersion()}`;
+  const enforceTitle = () => {
+    if (mainWindow.getTitle() !== desiredTitle) {
+      mainWindow.setTitle(desiredTitle);
+    }
+  };
+  enforceTitle();
   mainWindow.webContents.on('page-title-updated', (event) => {
     event.preventDefault();
+    enforceTitle();
   });
+  mainWindow.webContents.on('did-finish-load', enforceTitle);
 
   // アプリのindex.htmlを読み込む
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
