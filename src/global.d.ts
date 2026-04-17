@@ -23,7 +23,7 @@ declare global {
           message: string;
         }): Promise<{ success: boolean }>;
       };
-      onEditRequest(cb: (r: { action: string; path: string }) => void): void;
+      onEditRequest(cb: (r: { action: string; path: string }) => void): () => void;
     };
   }
 }

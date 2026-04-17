@@ -25,9 +25,19 @@ export function registerIpcHandlers() {
 
   // アクセストークンをポーリングして保存する
   ipcMain.handle('auth:pollToken', async (_e, deviceCode: string, intervalSec: number) => {
-    const result = await pollAccessToken(GITHUB_CLIENT_ID, deviceCode, intervalSec, 900);
-    await creds.saveToken(result.access_token);
-    return { success: true };
+    try {
+      const result = await pollAccessToken(GITHUB_CLIENT_ID, deviceCode, intervalSec, 900);
+      await creds.saveToken(result.access_token);
+      return { success: true };
+    } catch (e) {
+      // Sanitize — don't leak deviceCode/clientId in error messages
+      const safeMessage = (e as Error).message.includes('Cancelled')
+        ? 'Cancelled'
+        : (e as Error).message.includes('timed out')
+          ? 'Device flow timed out'
+          : 'Authentication failed';
+      throw new Error(safeMessage);
+    }
   });
 
   // PATを保存する
