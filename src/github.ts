@@ -17,6 +17,12 @@ export class GitHubClient {
     return { content, sha: data.sha };
   }
 
+  // 認証済みユーザーのログイン名を返す
+  async getAuthenticatedUser(): Promise<{ login: string }> {
+    const res = await this.octokit.rest.users.getAuthenticated();
+    return { login: res.data.login };
+  }
+
   async putFile(args: {
     owner: string; repo: string; path: string;
     content: string; sha: string; message: string;

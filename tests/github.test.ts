@@ -44,6 +44,14 @@ describe('GitHubClient', () => {
     });
   });
 
+  it('getAuthenticatedUser returns login', async () => {
+    const mockOctokit: any = {
+      rest: { users: { getAuthenticated: vi.fn().mockResolvedValue({ data: { login: 'alice' } }) } },
+    };
+    const client = new GitHubClient(mockOctokit);
+    expect(await client.getAuthenticatedUser()).toEqual({ login: 'alice' });
+  });
+
   it('fetchFile throws when data is a directory', async () => {
     const mockOctokit: any = {
       rest: {

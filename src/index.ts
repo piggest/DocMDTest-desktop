@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import path from 'node:path';
 import { parseEditUrl } from './protocol';
 import type { EditRequest } from './types';
+import { registerIpcHandlers } from './ipc';
 
 // ForgeのWebpackプラグインが自動生成するマジック定数を参照するための型宣言
 // （開発・本番それぞれのWebpackバンドル先パスを解決するために必要）
@@ -92,7 +93,10 @@ const createWindow = (): void => {
 
 // Electronの初期化完了後に呼び出されるイベント
 // このイベント以降でのみ使用可能なAPIがある
-app.on('ready', createWindow);
+app.on('ready', () => {
+  registerIpcHandlers();
+  createWindow();
+});
 
 // 全ウィンドウが閉じられたときの処理（macOSを除く）
 // macOSではCmd+Qで明示的に終了するまでアプリとメニューバーをアクティブに保つ
