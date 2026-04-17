@@ -15,6 +15,7 @@ export default function Editor({ path }: Props) {
   const [sha, setSha] = useState<string | null>(null);
   const [dirty, setDirty] = useState(false);
   const [frontmatter, setFrontmatter] = useState('');
+  const [customCss, setCustomCss] = useState<string | null>(null);
 
   const editor = useCreateBlockNote();
 
@@ -24,13 +25,18 @@ export default function Editor({ path }: Props) {
       try {
         setLoading(true);
         setError(null);
-        const { content, sha: fileSha } = await window.api.github.fetchFile(path);
+        // MDコンテンツとカスケードCSSを並行取得する
+        const [{ content, sha: fileSha }, css] = await Promise.all([
+          window.api.github.fetchFile(path),
+          window.api.github.resolveCss(path),
+        ]);
         if (cancelled) return;
         const { frontmatter: fm, body } = splitFrontmatter(content);
         setFrontmatter(fm);
         const blocks = await editor.tryParseMarkdownToBlocks(body);
         editor.replaceBlocks(editor.document, blocks);
         setSha(fileSha);
+        setCustomCss(css);
         setDirty(false);
         setLoading(false);
       } catch (e: any) {
@@ -82,6 +88,8 @@ export default function Editor({ path }: Props) {
         </button>
       </div>
       {error && <div style={{ padding: 12, color: 'red', background: '#fee' }}>エラー: {error}</div>}
+      {/* カスケードCSSを注入する */}
+      {customCss && <style dangerouslySetInnerHTML={{ __html: customCss }} />}
       <div style={{ flex: 1, overflow: 'auto' }}>
         <BlockNoteView editor={editor} onChange={handleChange} />
       </div>

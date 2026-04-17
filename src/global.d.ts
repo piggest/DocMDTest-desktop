@@ -22,6 +22,7 @@ declare global {
           sha: string;
           message: string;
         }): Promise<{ success: boolean }>;
+        resolveCss(path: string): Promise<string | null>;
       };
       app: {
         getVersion(): Promise<string>;

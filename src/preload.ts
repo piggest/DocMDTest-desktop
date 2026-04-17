@@ -14,6 +14,7 @@ contextBridge.exposeInMainWorld('api', {
     fetchFile: (path: string) => ipcRenderer.invoke('github:fetchFile', path),
     putFile: (args: { path: string; content: string; sha: string; message: string }) =>
       ipcRenderer.invoke('github:putFile', args),
+    resolveCss: (path: string) => ipcRenderer.invoke('github:resolveCss', path),
   },
   app: {
     getVersion: () => ipcRenderer.invoke('app:getVersion'),

@@ -2,6 +2,7 @@ import { ipcMain, app as electronApp } from 'electron';
 import { CredentialStore, startDeviceFlow, pollAccessToken } from './auth';
 import { GitHubClient } from './github';
 import { GITHUB_CLIENT_ID, REPO_OWNER, REPO_NAME } from './config';
+import { resolveCssForDoc } from './styleResolver';
 
 // IPCハンドラーを登録する
 export function registerIpcHandlers() {
@@ -66,5 +67,13 @@ export function registerIpcHandlers() {
     const client = GitHubClient.fromToken(token);
     await client.putFile({ owner: REPO_OWNER, repo: REPO_NAME, ...args });
     return { success: true };
+  });
+
+  // ドキュメントに適用すべきカスケードCSSを解決する
+  ipcMain.handle('github:resolveCss', async (_e, docPath: string) => {
+    const token = await creds.getToken();
+    if (!token) throw new Error('Not authenticated');
+    const client = GitHubClient.fromToken(token);
+    return resolveCssForDoc(client, REPO_OWNER, REPO_NAME, docPath);
   });
 }
