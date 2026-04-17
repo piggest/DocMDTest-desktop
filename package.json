@@ -47,6 +47,9 @@
     "vitest": "^4.1.4"
   },
   "dependencies": {
+    "@blocknote/core": "^0.48.1",
+    "@blocknote/mantine": "^0.48.1",
+    "@blocknote/react": "^0.48.1",
     "@octokit/rest": "^22.0.1",
     "electron-squirrel-startup": "^1.0.1",
     "keytar": "^7.9.0",

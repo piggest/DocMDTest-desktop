@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import LoginScreen from './LoginScreen';
+import Editor from './Editor';
 
 export default function App() {
   const [authed, setAuthed] = useState<boolean | null>(null);
@@ -25,10 +26,5 @@ export default function App() {
       <button onClick={handleLogout}>ログアウト</button>
     </div>
   );
-  return (
-    <div style={{ padding: 24 }}>
-      <p>編集対象: {editRequest.path}</p>
-      <button onClick={handleLogout}>ログアウト</button>
-    </div>
-  );
+  return <Editor path={editRequest.path} onLogout={handleLogout} />;
 }
