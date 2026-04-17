@@ -2,7 +2,7 @@ import { app, safeStorage } from 'electron';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-export const SERVICE = 'DocMDTest-desktop';
+export const SERVICE = 'ConiferFruitsEditor';
 export const ACCOUNT = 'github-token';
 
 function tokenFilePath(): string {
@@ -125,7 +125,7 @@ export async function startDeviceFlow(clientId: string): Promise<DeviceCodeRespo
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'DocMDTest-Desktop/0.1.0',
+        'User-Agent': 'ConiferFruitsEditor/0.2.0',
       },
       body: new URLSearchParams({ client_id: clientId, scope: 'repo' }).toString(),
     });
@@ -159,7 +159,7 @@ export async function pollAccessToken(
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded',
-          'User-Agent': 'DocMDTest-Desktop/0.1.0',
+          'User-Agent': 'ConiferFruitsEditor/0.2.0',
         },
         body: new URLSearchParams({
           client_id: clientId,

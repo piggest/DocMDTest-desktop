@@ -37,7 +37,7 @@ export default function LoginScreen({ onAuthenticated }: Props) {
 
   return (
     <div style={{ padding: 24, maxWidth: 480, margin: '0 auto' }}>
-      <h1>DocMDTest Desktop</h1>
+      <h1>ConiferFruitsEditor</h1>
       <p>GitHub で認証してください。</p>
       {error && <div style={{ color: 'red', marginBottom: 12 }}>{error}</div>}
 

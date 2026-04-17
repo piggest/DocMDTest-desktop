@@ -2,4 +2,4 @@
 // Device Flow does not require a Client Secret, so embedding Client ID is safe.
 export const GITHUB_CLIENT_ID = 'Ov23liP3Su9qJpAcvOJP';
 export const REPO_OWNER = 'piggest';
-export const REPO_NAME = 'DocMDTest';
+export const REPO_NAME = 'ConiferFruits';

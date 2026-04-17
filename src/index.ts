@@ -15,13 +15,13 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-// docmdtest:// URLスキームをデフォルトハンドラとして登録
+// cnfr:// URLスキームをデフォルトハンドラとして登録
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient('docmdtest', process.execPath, [path.resolve(process.argv[1])]);
+    app.setAsDefaultProtocolClient('cnfr', process.execPath, [path.resolve(process.argv[1])]);
   }
 } else {
-  app.setAsDefaultProtocolClient('docmdtest');
+  app.setAsDefaultProtocolClient('cnfr');
 }
 
 // シングルインスタンスロックを取得（2重起動防止）
@@ -49,11 +49,11 @@ function handleEditUrl(url: string) {
 
 // 2つ目のインスタンスが起動しようとしたとき、URLを受け取って処理する
 app.on('second-instance', (_event, argv) => {
-  const urlArg = argv.find(a => a.startsWith('docmdtest://'));
+  const urlArg = argv.find(a => a.startsWith('cnfr://'));
   if (urlArg) handleEditUrl(urlArg);
 });
 
-// macOS: Finderなどからdocmdtest://リンクが開かれたとき
+// macOS: Finderなどからcnfr://リンクが開かれたとき
 app.on('open-url', (event, url) => {
   event.preventDefault();
   handleEditUrl(url);
@@ -70,7 +70,7 @@ const createWindow = (): void => {
   });
 
   // ウィンドウタイトルにバージョンを設定（HTMLの<title>で上書きされないよう毎回強制）
-  const desiredTitle = `DocMDTest Desktop v${app.getVersion()}`;
+  const desiredTitle = `ConiferFruitsEditor v${app.getVersion()}`;
   const enforceTitle = () => {
     if (mainWindow.getTitle() !== desiredTitle) {
       mainWindow.setTitle(desiredTitle);

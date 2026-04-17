@@ -1,3 +1,3 @@
-# DocMDTest Desktop
+# ConiferFruitsEditor
 
-Visual editor for piggest/DocMDTest documentation. Electron + React + BlockNote.
+Visual editor for piggest/ConiferFruits documentation. Electron + React + BlockNote.

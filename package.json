@@ -1,8 +1,8 @@
 {
-  "name": "docmdtest-desktop",
-  "productName": "DocMDTest Desktop",
-  "version": "0.1.4",
-  "description": "Visual editor for piggest/DocMDTest documentation",
+  "name": "coniferfruits-editor",
+  "productName": "ConiferFruitsEditor",
+  "version": "0.2.0",
+  "description": "Visual editor for piggest/ConiferFruits documentation",
   "main": ".webpack/main",
   "private": true,
   "scripts": {
