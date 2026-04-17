@@ -1,16 +1,17 @@
 import type { Configuration } from 'webpack';
 
-import { rules } from './webpack.rules';
+import { rules as sharedRules } from './webpack.rules';
 import { plugins } from './webpack.plugins';
 
-rules.push({
-  test: /\.css$/,
-  use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
-});
+// sharedRulesを直接変更しないようスプレッドで新配列を生成
+const rendererRules = [
+  ...sharedRules,
+  { test: /\.css$/, use: [{ loader: 'style-loader' }, { loader: 'css-loader' }] },
+];
 
 export const rendererConfig: Configuration = {
   module: {
-    rules,
+    rules: rendererRules,
   },
   plugins,
   resolve: {
