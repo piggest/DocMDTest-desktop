@@ -15,13 +15,8 @@ export default function Editor({ path }: Props) {
   const [sha, setSha] = useState<string | null>(null);
   const [dirty, setDirty] = useState(false);
   const [frontmatter, setFrontmatter] = useState('');
-  const [version, setVersion] = useState('');
 
   const editor = useCreateBlockNote();
-
-  useEffect(() => {
-    window.api.app.getVersion().then(setVersion);
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -85,7 +80,6 @@ export default function Editor({ path }: Props) {
         <button onClick={handleSave} disabled={!dirty || saving}>
           {saving ? '保存中...' : '編集完了（保存）'}
         </button>
-        <span style={{ fontSize: 11, color: '#999', marginLeft: 8 }}>v{version}</span>
       </div>
       {error && <div style={{ padding: 12, color: 'red', background: '#fee' }}>エラー: {error}</div>}
       <div style={{ flex: 1, overflow: 'auto' }}>

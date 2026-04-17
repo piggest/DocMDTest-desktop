@@ -5,7 +5,6 @@ import Editor from './Editor';
 export default function App() {
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [editRequest, setEditRequest] = useState<{ path: string } | null>(null);
-  const [version, setVersion] = useState('');
 
   // メニューからのログアウトに対応するためrefで最新の関数を保持
   const handleLogoutRef = useRef<(() => Promise<void>) | undefined>(undefined);
@@ -14,10 +13,6 @@ export default function App() {
     setAuthed(false);
     setEditRequest(null);
   };
-
-  useEffect(() => {
-    window.api.app.getVersion().then(setVersion);
-  }, []);
 
   useEffect(() => {
     window.api.auth.getStatus().then(s => setAuthed(s.authenticated));
@@ -31,7 +26,6 @@ export default function App() {
   if (!editRequest) return (
     <div style={{ padding: 24 }}>
       <p>サイトの編集ボタンを押してください</p>
-      <div style={{ position: 'fixed', bottom: 8, right: 12, fontSize: 10, color: '#aaa' }}>v{version}</div>
     </div>
   );
   return <Editor path={editRequest.path} />;
