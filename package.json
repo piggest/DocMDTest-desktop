@@ -1,7 +1,7 @@
 {
   "name": "coniferfruits-editor",
   "productName": "ConiferFruitsEditor",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Visual editor for piggest/ConiferFruits documentation",
   "main": ".webpack/main",
   "private": true,

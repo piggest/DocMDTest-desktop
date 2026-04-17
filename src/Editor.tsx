@@ -90,7 +90,7 @@ export default function Editor({ path }: Props) {
       {error && <div style={{ padding: 12, color: 'red', background: '#fee' }}>エラー: {error}</div>}
       {/* カスケードCSSを注入する */}
       {customCss && <style dangerouslySetInnerHTML={{ __html: customCss }} />}
-      <div style={{ flex: 1, overflow: 'auto' }}>
+      <div className="theme-doc-markdown" style={{ flex: 1, overflow: 'auto' }}>
         <BlockNoteView editor={editor} onChange={handleChange} />
       </div>
     </div>
