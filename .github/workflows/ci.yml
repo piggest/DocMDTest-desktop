@@ -16,5 +16,5 @@ jobs:
       - run: npm install -g npm@10
       - run: node --version && npm --version
       - run: npm ls yaml 2>&1 | head -20
-      - run: npm ci
+      - run: rm -rf node_modules package-lock.json && npm install
       - run: npx vitest run
