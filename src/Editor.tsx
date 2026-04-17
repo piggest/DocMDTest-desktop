@@ -88,12 +88,17 @@ export default function Editor({ path }: Props) {
         </button>
       </div>
       {error && <div style={{ padding: 12, color: 'red', background: '#fee' }}>エラー: {error}</div>}
-      {/* カスケードCSSを注入する。emをサイト同等に解決させるため、ラッパーで font-size を 16px にリセット */}
+      {/* カスケードCSSを注入する。BlockNote が見出しブロックに大きい font-size を入れるので、
+          em 計算が想定外に大きくなる。ブロック側を 16px にリセットしてからカスケードCSSを後勝ちで適用。 */}
       {customCss && (
         <style dangerouslySetInnerHTML={{ __html: `
-          .theme-doc-markdown { font-size: 16px; }
+          .theme-doc-markdown,
           .theme-doc-markdown .bn-editor,
-          .theme-doc-markdown .bn-block-content { font-size: 16px; }
+          .theme-doc-markdown .bn-block-outer,
+          .theme-doc-markdown .bn-block-content,
+          .theme-doc-markdown .bn-inline-content { font-size: 16px !important; }
+          .theme-doc-markdown h1, .theme-doc-markdown h2,
+          .theme-doc-markdown h3, .theme-doc-markdown h4 { all: revert; }
           ${customCss}
         ` }} />
       )}
