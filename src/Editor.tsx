@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BlockNoteView } from '@blocknote/mantine';
 import { useCreateBlockNote } from '@blocknote/react';
 import '@blocknote/mantine/style.css';
+import './styles/global.css';
 import { normalizeMd, splitFrontmatter, decodeLinkUris } from './mdConverter';
 import Toolbar from './Toolbar';
 
